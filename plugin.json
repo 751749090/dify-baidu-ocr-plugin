@@ -1,0 +1,71 @@
+{
+    "schema_version": "v1",
+    "name": "baidu_idcard_ocr",
+    "display_name": "OCR身份证识别",
+    "description": "集成百度AI的身份证识别服务，支持正反面识别和质量检测",
+    "icon": "logo.png",
+    "configuration": [
+        {
+            "name": "BAIDU_API_KEY",
+            "display_name": "百度API Key",
+            "type": "text",
+            "required": true,
+            "description": "从百度智能云获取的API密钥"
+        },
+        {
+            "name": "BAIDU_SECRET_KEY",
+            "display_name": "百度Secret Key",
+            "type": "text",
+            "required": true,
+            "description": "从百度智能云获取的Secret密钥"
+        }
+    ],
+    "inputs": {
+        "image": {
+            "display_name": "身份证图片",
+            "type": "file",
+            "required": true,
+            "description": "支持JPG/PNG/BMP格式（4MB以内）"
+        },
+        "card_side": {
+            "display_name": "证件面类型",
+            "type": "select",
+            "required": true,
+            "options": [
+                {"value": "front", "text": "正面（人像面）"},
+                {"value": "back", "text": "背面（国徽面）"}
+            ],
+            "default": "front"
+        }
+    },
+    "outputs": {
+        "success": {
+            "type": "boolean",
+            "description": "是否成功"
+        },
+        "data": {
+            "type": "object",
+            "description": "识别结果数据",
+            "properties": {
+                "name": {"type": "string"},
+                "gender": {"type": "string"},
+                "ethnicity": {"type": "string"},
+                "birth_date": {"type": "string"},
+                "address": {"type": "string"},
+                "id_number": {"type": "string"},
+                "issued_by": {"type": "string"},
+                "valid_period": {"type": "string"},
+                "image_quality": {"type": "string"},
+                "risk_warning": {"type": "string"}
+            }
+        },
+        "error": {
+            "type": "object",
+            "description": "错误信息",
+            "properties": {
+                "code": {"type": "string"},
+                "message": {"type": "string"}
+            }
+        }
+    }
+}
